@@ -3,6 +3,19 @@
   align-items: stretch;
   height: 100vh;
 
+  &.dark {
+    background: #333;
+
+    ::placeholder {
+      color: #fff;
+      opacity: 0.6;
+    }
+    .main-content form input {
+      background: #555;
+      color: #fff;
+    }
+  }
+
   aside {
     flex: 6;
 
@@ -139,5 +152,11 @@
       background: #a8a8b3;
       margin-left: 16px;
     }
+  }
+
+  .theme-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
   }
 }

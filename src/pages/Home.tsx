@@ -8,7 +8,9 @@ import googleIconImg from "../assets/images/google-icon.svg";
 import { database } from "../services/firebase";
 
 import { Button } from "../components/Button";
+import { ThemeButton } from "../components/ThemeButton";
 import { useAuth } from "../hooks/useAuth";
+import { useTheme } from "../hooks/useTheme";
 
 import "../styles/auth.scss";
 import { useState } from "react";
@@ -17,6 +19,8 @@ export function Home() {
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState("");
+
+  const { theme } = useTheme();
 
   async function handleCreateRoom() {
     if (!user) {
@@ -48,7 +52,7 @@ export function Home() {
   }
 
   return (
-    <div id="page-auth">
+    <div id="page-auth" className={theme}>
       <aside>
         <img
           src={illustrationImg}
@@ -74,6 +78,9 @@ export function Home() {
             />
             <Button type="submit">Entrar na sala</Button>
           </form>
+        </div>
+        <div className="theme-button">
+          <ThemeButton />
         </div>
       </main>
     </div>
