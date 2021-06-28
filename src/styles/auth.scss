@@ -4,15 +4,21 @@
   height: 100vh;
 
   &.dark {
+    aside {
+      background: #4d339b;
+    }
     background: #333;
+    color: #f3f3f3;
 
     ::placeholder {
       color: #fff;
       opacity: 0.6;
     }
-    .main-content form input {
-      background: #555;
-      color: #fff;
+    .main-content form {
+      input {
+        background: #555;
+        color: #fff;
+      }
     }
   }
 

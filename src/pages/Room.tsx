@@ -1,5 +1,5 @@
-import { FormEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -8,6 +8,7 @@ import { Question } from "../components/Question";
 import { RoomCode } from "../components/RoomCode";
 import { useAuth } from "../hooks/useAuth";
 import { useRoom } from "../hooks/useRoom";
+import { useTheme } from "../hooks/useTheme";
 import { database } from "../services/firebase";
 
 import "../styles/room.scss";
@@ -18,9 +19,27 @@ type RoomParams = {
 
 export function Room() {
   const { user, signInWithGoogle } = useAuth();
+  const history = useHistory();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState("");
   const roomId = params.id;
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    const roomRef = database.ref(`rooms/${roomId}`);
+
+    roomRef.get().then((room) => {
+      if (room.val().endedAt) {
+        history.push("/");
+      }
+    });
+  }, [roomId, history]);
+
+  useEffect(() => {
+    if (!user) {
+      history.push("/");
+    }
+  }, [user, history]);
 
   const { title, questions } = useRoom(roomId);
 
@@ -63,8 +82,14 @@ export function Room() {
     }
   }
 
+  async function handleLogin() {
+    await signInWithGoogle();
+
+    history.push(`/rooms/${roomId}`);
+  }
+
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
           <img src={logoImg} alt="Letmeask" />
@@ -99,9 +124,7 @@ export function Room() {
             ) : (
               <span>
                 Para enviar uma pergunta,{" "}
-                <button onClick={() => signInWithGoogle()}>
-                  faça seu login.
-                </button>
+                <button onClick={() => handleLogin()}>faça seu login.</button>
               </span>
             )}
             <Button type="submit">Enviar pergunta</Button>

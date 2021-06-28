@@ -58,8 +58,10 @@ export function useRoom(roomId: string) {
         }
       );
 
+      const questionsStorage = parsedQuestions.sort((a, b) => a.likeCount - b.likeCount);
+
       setTitle(databaseRoom.title);
-      setQuestions(parsedQuestions);
+      setQuestions(questionsStorage);
     });
 
     return () => {

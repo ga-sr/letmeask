@@ -3,6 +3,7 @@ import { FormEvent } from "react";
 
 import illustrationImg from "../assets/images/illustration.svg";
 import logoImg from "../assets/images/logo.svg";
+import logoDarkImg from "../assets/images/logoDark.svg";
 import googleIconImg from "../assets/images/google-icon.svg";
 
 import { database } from "../services/firebase";
@@ -63,7 +64,11 @@ export function Home() {
       </aside>
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Letmeask" />
+          {theme === "light" ? (
+            <img src={logoImg} alt="Letmeask" />
+          ) : (
+            <img src={logoDarkImg} alt="Letmeask" />
+          )}
           <button onClick={handleCreateRoom} className="create-room">
             <img src={googleIconImg} alt="Logo do google" />
             Crie sua sala com o Google
