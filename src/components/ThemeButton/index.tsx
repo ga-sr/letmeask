@@ -1,9 +1,9 @@
-import { useTheme } from "../hooks/useTheme";
+import { useTheme } from "../../hooks/useTheme";
 
-import "../styles/themeButton.scss";
+import "./styles.scss";
 
-import moonImg from "../assets/images/moon.svg";
-import sunImg from "../assets/images/sun.svg";
+import moonImg from "../../assets/images/moon.svg";
+import sunImg from "../../assets/images/sun.svg";
 
 export function ThemeButton() {
   const { theme, toggleTheme } = useTheme();
